@@ -86,7 +86,7 @@ module Danger
         next unless result
 
         path, line, _column, message = result
-        warn("#{message} in #{path} on #{line}")
+        warn("#{message} in #{path} on line #{line}")
       end
     end
 

@@ -80,15 +80,13 @@ module Danger
     # @return [void]
     def scan(options = {}, &block)
       output = Periphery::Runner.new(binary_path).scan(options.merge(OPTION_OVERRIDES).merge(format: @format))
-      files = files_in_diff
-      parser.parse(output).each do |entry|
-        next unless files.include?(entry.path)
 
+      parser.parse(output).each do |entry|
         result = postprocess(entry, &block)
         next unless result
 
         path, line, _column, message = result
-        warn(message, file: path, line: line)
+        warn("#{message} in #{entry.path}")
       end
     end
 
